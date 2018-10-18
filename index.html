@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style>
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HEADER</h1>
+    </header>
+    <main id="app">
+        <p >{{message}} {{counter}} {{message2}}</p>
+        <reversible-message></reversible-message>
+    </main>
+<script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello',
+        message2: 'World!',
+        counter: 0,
+      },
+    });
+
+    Vue.component('reversible-message', {
+      template: '<p @click="reverseMessage">{{message}}</p>',
+      data:{
+        message: 'Message',
+      },
+      methods:{
+        reverseMessage: function(){
+          this.message = this.message.split('').reverse().join('');
+        },
+      }
+    });
+
+    vm.message2 = 'Students!';
+    vm.counter++;
+    setInterval(() => vm.counter++, 1000);
+
+
+</script>
+</body>
+</html>

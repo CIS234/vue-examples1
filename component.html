@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Custom Component</title>
+</head>
+<body>
+<div id="app2">
+    <input v-model="name"/>
+    <happy-birthday v-bind:to="name"></happy-birthday>
+</div>
+
+<script>
+  //Components first
+  Vue.component('happy-birthday', {
+    props: ['to'],
+    template: '<p>Happy Birthday {{to}}!</p>',
+  });
+
+  const names = ['Cynthia', 'Clayton', 'Jose', 'Maureen', 'Jameson'];
+
+  const data = {
+    name: '...'
+  };
+
+  //Then create Vue instance
+  const vm = new Vue({
+    el: '#app2',
+    data
+  });
+
+  setTimeout(() => data.name = names[Math.floor(Math.random() * names.length)], 3000);
+
+</script>
+</body>
+
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 5 in Vue</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+    <div id="app3">
+        <button @click="sortYearUp">Sort Year Up</button>
+        <button @click="sortYearDown">Sort Year Down</button>
+        <button @click="sortPopulationUp">Sort Population Up</button>
+        <button @click="sortPopulationDown">Sort Population Down</button>
+        <ul>
+            <li v-for="population in populations" >
+                {{population.population}} in {{population.year}}
+            </li>
+        </ul>
+    </div>
+    <script>
+
+        const data = {
+          populations: []
+        };
+
+        const vm = new Vue({
+          el: "#app3",
+          data,
+          methods:{
+            sortYearDown: function(){
+              this.populations.sort((a, b) => b.year - a.year);
+            },
+            sortYearUp: function(){
+              this.populations.sort((a, b) => a.year - b.year);
+            },
+            sortPopulationDown: function(){
+              this.populations.sort((a, b) => b.population - a.population);
+            },
+            sortPopulationUp: function(){
+              this.populations.sort((a, b) => a.population - b.population);
+            }
+          }
+        });
+
+        //Get the data
+        fetch('https://api.myjson.com/bins/eq1i8')
+          .then(response => response.json())
+          .then(json => json.data)
+          .then(responseData => data.populations.push(...responseData))
+
+    </script>
+</body>
+</html>
